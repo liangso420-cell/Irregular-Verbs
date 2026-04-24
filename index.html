@@ -18,9 +18,9 @@
     --muted: #7a7a99;
     --radius: 14px;
   }
-
+ 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   body {
     background: var(--bg);
     color: var(--text);
@@ -32,8 +32,7 @@
     padding: 24px 16px 48px;
     overflow-x: hidden;
   }
-
-  /* Animated noise grain overlay */
+ 
   body::before {
     content: '';
     position: fixed;
@@ -42,7 +41,7 @@
     pointer-events: none;
     z-index: 0;
   }
-
+ 
   .container {
     position: relative;
     z-index: 1;
@@ -50,14 +49,10 @@
     max-width: 560px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
   }
-
-  /* Header */
-  header {
-    text-align: center;
-    padding-top: 12px;
-  }
+ 
+  header { text-align: center; padding-top: 12px; }
   header h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 6vw, 3rem);
@@ -76,7 +71,53 @@
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.05em;
   }
-
+ 
+  /* TABS */
+  .tabs {
+    display: flex;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 4px;
+    gap: 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 50px;
+    background: none;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .tab-btn.active {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .tab-badge {
+    background: var(--accent2);
+    color: #fff;
+    font-size: 0.7rem;
+    border-radius: 50px;
+    padding: 1px 7px;
+    font-family: 'DM Mono', monospace;
+    display: none;
+  }
+  .tab-badge.visible { display: inline-block; }
+ 
+  /* PAGES */
+  .page { display: none; flex-direction: column; gap: 18px; }
+  .page.active { display: flex; }
+ 
   /* Score row */
   .score-row {
     display: flex;
@@ -85,10 +126,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  .score-chips {
-    display: flex;
-    gap: 8px;
-  }
+  .score-chips { display: flex; gap: 8px; }
   .chip {
     background: var(--card);
     border: 1px solid var(--border);
@@ -100,21 +138,13 @@
     align-items: center;
     gap: 6px;
   }
-  .chip .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .chip.correct .dot { background: var(--accent3); }
-  .chip.wrong .dot { background: var(--accent2); }
+  .chip.wrong   .dot { background: var(--accent2); }
   .chip.best { color: var(--accent); border-color: #3a3010; background: #1a1500; }
-
+ 
   /* Timer */
-  .timer-section {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .timer-section { display: flex; align-items: center; gap: 8px; }
   .timer-toggle {
     background: none;
     border: 1px solid var(--border);
@@ -126,28 +156,12 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-  .timer-toggle:hover, .timer-toggle.active {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .timer-bar-wrap {
-    flex: 1;
-    height: 4px;
-    background: var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    display: none;
-  }
+  .timer-toggle:hover, .timer-toggle.active { border-color: var(--accent); color: var(--accent); }
+  .timer-bar-wrap { flex: 1; height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; display: none; }
   .timer-bar-wrap.visible { display: block; }
-  .timer-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 4px;
-    width: 100%;
-    transition: width 0.1s linear, background 0.5s;
-  }
+  .timer-bar { height: 100%; background: var(--accent); border-radius: 4px; width: 100%; transition: width 0.1s linear, background 0.5s; }
   .timer-bar.warning { background: var(--accent2); }
-
+ 
   /* Main card */
   .card {
     background: var(--card);
@@ -166,16 +180,10 @@
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
     opacity: 0.5;
   }
-  .card.shake {
-    animation: shake 0.4s ease;
-  }
-  .card.correct-flash {
-    box-shadow: 0 0 0 2px var(--accent3), 0 0 40px rgba(92,224,122,0.15);
-  }
-  .card.wrong-flash {
-    box-shadow: 0 0 0 2px var(--accent2), 0 0 40px rgba(224,92,92,0.15);
-  }
-
+  .card.shake { animation: shake 0.4s ease; }
+  .card.correct-flash { box-shadow: 0 0 0 2px var(--accent3), 0 0 40px rgba(92,224,122,0.15); }
+  .card.wrong-flash   { box-shadow: 0 0 0 2px var(--accent2), 0 0 40px rgba(224,92,92,0.15); }
+ 
   @keyframes shake {
     0%,100% { transform: translateX(0); }
     20% { transform: translateX(-8px); }
@@ -183,7 +191,7 @@
     60% { transform: translateX(-5px); }
     80% { transform: translateX(5px); }
   }
-
+ 
   .verb-label {
     font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
@@ -192,7 +200,6 @@
     text-transform: uppercase;
     margin-bottom: 8px;
   }
-
   .verb-display {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.8rem, 9vw, 4.2rem);
@@ -200,7 +207,6 @@
     line-height: 1;
     margin-bottom: 28px;
     color: var(--text);
-    position: relative;
     display: inline-block;
   }
   .verb-display .verb-anim {
@@ -211,13 +217,9 @@
     from { opacity: 0; transform: translateY(12px) scale(0.92); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
   }
-
-  .input-row {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-  }
-
+ 
+  .input-row { display: flex; gap: 10px; align-items: stretch; }
+ 
   input[type="text"] {
     flex: 1;
     background: var(--surface);
@@ -231,16 +233,12 @@
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   input[type="text"]::placeholder { color: var(--muted); }
-  input[type="text"]:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(240,193,75,0.12);
-  }
+  input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(240,193,75,0.12); }
   input[type="text"].correct-input { border-color: var(--accent3); }
   input[type="text"].wrong-input   { border-color: var(--accent2); }
-
-  .btn-check {
-    background: var(--accent);
-    color: #1a1200;
+ 
+  /* Unified Check / Next button */
+  .btn-main {
     border: none;
     border-radius: 10px;
     padding: 14px 20px;
@@ -250,14 +248,17 @@
     font-family: 'DM Sans', sans-serif;
     transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
     white-space: nowrap;
+    min-width: 110px;
+    text-align: center;
   }
-  .btn-check:hover {
-    background: #f5ce6a;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px rgba(240,193,75,0.3);
-  }
-  .btn-check:active { transform: translateY(0); }
-
+  .btn-main.check-mode { background: var(--accent); color: #1a1200; }
+  .btn-main.check-mode:hover { background: #f5ce6a; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(240,193,75,0.3); }
+  .btn-main.next-ok { background: var(--accent3); color: #0a1f10; }
+  .btn-main.next-ok:hover { background: #7aeca0; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(92,224,122,0.3); }
+  .btn-main.next-err { background: var(--accent2); color: #fff; }
+  .btn-main.next-err:hover { background: #e87a7a; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(224,92,92,0.3); }
+  .btn-main:active { transform: translateY(0) !important; }
+ 
   /* Feedback */
   .feedback {
     margin-top: 18px;
@@ -270,33 +271,21 @@
     gap: 10px;
   }
   .feedback.visible { display: flex; }
-  .feedback.correct-fb {
-    background: rgba(92,224,122,0.08);
-    border: 1px solid rgba(92,224,122,0.25);
-    color: var(--accent3);
-  }
-  .feedback.wrong-fb {
-    background: rgba(224,92,92,0.08);
-    border: 1px solid rgba(224,92,92,0.25);
-    color: var(--accent2);
-  }
+  .feedback.correct-fb { background: rgba(92,224,122,0.08); border: 1px solid rgba(92,224,122,0.25); color: var(--accent3); }
+  .feedback.wrong-fb   { background: rgba(224,92,92,0.08);  border: 1px solid rgba(224,92,92,0.25);  color: var(--accent2); }
   .feedback .fb-icon { font-size: 1.3rem; flex-shrink: 0; }
   .feedback .fb-text strong { font-family: 'DM Mono', monospace; }
-
+ 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
+ 
   /* Controls */
-  .controls {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; }
   .btn {
     flex: 1;
-    min-width: 120px;
+    min-width: 100px;
     padding: 13px 16px;
     border-radius: 10px;
     font-size: 0.9rem;
@@ -308,145 +297,225 @@
     background: var(--card);
     color: var(--text);
   }
-  .btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-1px);
-  }
-  .btn.primary {
-    background: var(--accent);
-    color: #1a1200;
-    border-color: var(--accent);
-  }
-  .btn.primary:hover {
-    background: #f5ce6a;
-    color: #1a1200;
-  }
-
-  /* Progress bar */
-  .progress-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .progress-bar-wrap {
-    flex: 1;
-    height: 6px;
-    background: var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), #f07b4b);
-    border-radius: 6px;
-    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .progress-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  /* Streak badge */
+  .btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .btn.danger { border-color: #3a1010; color: var(--muted); }
+  .btn.danger:hover { border-color: var(--accent2); color: var(--accent2); }
+ 
+  /* Progress */
+  .progress-section { display: flex; align-items: center; gap: 12px; }
+  .progress-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 6px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #f07b4b); border-radius: 6px; transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  .progress-label { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+ 
+  /* Streak */
   .streak {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    display: inline-flex; align-items: center; gap: 5px;
     background: linear-gradient(135deg, #3a2200, #2a1800);
-    border: 1px solid #5a3800;
-    border-radius: 50px;
-    padding: 5px 12px;
-    font-size: 0.82rem;
-    font-family: 'DM Mono', monospace;
-    color: var(--accent);
-    transition: all 0.3s;
+    border: 1px solid #5a3800; border-radius: 50px;
+    padding: 5px 12px; font-size: 0.82rem;
+    font-family: 'DM Mono', monospace; color: var(--accent); transition: all 0.3s;
   }
-  .streak.hot {
-    animation: pulse 1s infinite;
-    border-color: var(--accent);
-    box-shadow: 0 0 12px rgba(240,193,75,0.3);
-  }
+  .streak.hot { animation: pulse 1s infinite; border-color: var(--accent); box-shadow: 0 0 12px rgba(240,193,75,0.3); }
   @keyframes pulse {
     0%,100% { box-shadow: 0 0 12px rgba(240,193,75,0.3); }
-    50% { box-shadow: 0 0 24px rgba(240,193,75,0.5); }
+    50%      { box-shadow: 0 0 24px rgba(240,193,75,0.5); }
   }
-
-  /* Hint */
-  .hint-row {
-    margin-top: 12px;
-    font-size: 0.8rem;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    min-height: 1.2em;
-    transition: all 0.3s;
-  }
+ 
+  .hint-row { margin-top: 12px; font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; min-height: 1.2em; }
   .hint-row span { color: var(--accent); letter-spacing: 0.1em; }
-
-  /* Responsive */
+ 
+  /* Practice mode banner */
+  .practice-banner {
+    background: rgba(224,92,92,0.1);
+    border: 1px solid rgba(224,92,92,0.3);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    color: var(--accent2);
+    font-family: 'DM Mono', monospace;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .practice-banner.visible { display: flex; }
+  .practice-banner button {
+    background: none;
+    border: 1px solid rgba(224,92,92,0.4);
+    border-radius: 6px;
+    color: var(--accent2);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .practice-banner button:hover { background: rgba(224,92,92,0.15); }
+ 
+  /* ── MISTAKES PAGE ── */
+  .mistakes-header {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 10px;
+  }
+  .mistakes-header h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+  .btn-sm {
+    padding: 7px 14px; border-radius: 8px;
+    border: 1.5px solid var(--border); background: var(--card);
+    color: var(--muted); font-size: 0.8rem;
+    font-family: 'DM Sans', sans-serif; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-sm:hover { border-color: var(--accent2); color: var(--accent2); }
+ 
+  .mistakes-empty {
+    text-align: center; padding: 48px 24px; color: var(--muted);
+    font-size: 0.95rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: var(--radius);
+  }
+  .mistakes-empty .em-icon { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+ 
+  .mistakes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+ 
+  .mistake-card {
+    background: var(--card);
+    border: 1px solid rgba(224,92,92,0.25);
+    border-radius: 12px; padding: 16px;
+    display: flex; flex-direction: column; gap: 5px;
+    position: relative;
+    animation: fadeUp 0.3s ease;
+  }
+  .mistake-card .mc-infinitive { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .mistake-card .mc-verb { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--text); }
+  .mistake-card .mc-arrow { font-size: 0.78rem; color: var(--muted); }
+  .mistake-card .mc-pp { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--accent2); font-weight: 500; padding-bottom: 14px; }
+  .mistake-card .mc-count {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(224,92,92,0.15); border: 1px solid rgba(224,92,92,0.3);
+    border-radius: 50px; padding: 2px 8px;
+    font-size: 0.68rem; font-family: 'DM Mono', monospace; color: var(--accent2);
+  }
+  .mistake-card .mc-del {
+    position: absolute; bottom: 8px; right: 10px;
+    background: none; border: none; color: var(--border);
+    font-size: 1rem; cursor: pointer; transition: color 0.2s; padding: 2px;
+  }
+  .mistake-card .mc-del:hover { color: var(--accent2); }
+ 
+  .practice-mistakes-btn {
+    width: 100%; padding: 14px; border-radius: 10px;
+    background: rgba(224,92,92,0.1); border: 1.5px solid rgba(224,92,92,0.35);
+    color: var(--accent2); font-family: 'DM Sans', sans-serif;
+    font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+  }
+  .practice-mistakes-btn:hover:not(:disabled) { background: rgba(224,92,92,0.2); transform: translateY(-1px); }
+  .practice-mistakes-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+ 
   @media (max-width: 420px) {
     .card { padding: 24px 18px; }
-    .btn { min-width: 100px; font-size: 0.84rem; }
-    .score-row { gap: 6px; }
+    .btn { min-width: 90px; font-size: 0.84rem; }
+    .mistakes-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
+ 
   <header>
     <h1>Verb Forge</h1>
     <p>// irregular verb trainer — past participle mode</p>
   </header>
-
-  <div class="score-row">
-    <div class="score-chips">
-      <div class="chip correct"><div class="dot"></div><span id="scoreCorrect">0</span> correct</div>
-      <div class="chip wrong"><div class="dot"></div><span id="scoreWrong">0</span> wrong</div>
-    </div>
-    <div class="streak" id="streakBadge">🔥 <span id="streakCount">0</span> streak</div>
-    <div class="chip best">⭐ Best: <span id="bestScore">0</span></div>
+ 
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" id="tabPractice" onclick="switchTab('practice', this)">⚡ Práctica</button>
+    <button class="tab-btn" id="tabMistakes" onclick="switchTab('mistakes', this)">
+      ✗ Errores <span class="tab-badge" id="mistakesBadge">0</span>
+    </button>
   </div>
-
-  <div class="timer-section">
-    <button class="timer-toggle" id="timerToggle" onclick="toggleTimer()">⏱ Timer</button>
-    <div class="timer-bar-wrap" id="timerBarWrap">
-      <div class="timer-bar" id="timerBar"></div>
+ 
+  <!-- ══ PRACTICE PAGE ══ -->
+  <div class="page active" id="page-practice">
+ 
+    <div class="score-row">
+      <div class="score-chips">
+        <div class="chip correct"><div class="dot"></div><span id="scoreCorrect">0</span> correctas</div>
+        <div class="chip wrong"><div class="dot"></div><span id="scoreWrong">0</span> errores</div>
+      </div>
+      <div class="streak" id="streakBadge">🔥 <span id="streakCount">0</span></div>
+      <div class="chip best">⭐ Mejor: <span id="bestScore">0</span></div>
     </div>
-  </div>
-
-  <div class="progress-section">
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+ 
+    <div class="timer-section">
+      <button class="timer-toggle" id="timerToggle" onclick="toggleTimer()">⏱ Temporizador</button>
+      <div class="timer-bar-wrap" id="timerBarWrap">
+        <div class="timer-bar" id="timerBar"></div>
+      </div>
     </div>
-    <div class="progress-label" id="progressLabel">0 / 148</div>
-  </div>
-
-  <div class="card" id="mainCard">
-    <div class="verb-label">Infinitive (1st form)</div>
-    <div class="verb-display"><span class="verb-anim" id="verbDisplay">—</span></div>
-
-    <div class="input-row">
-      <input type="text" id="answerInput" placeholder="Type past participle…" autocomplete="off" autocorrect="off" spellcheck="false" />
-      <button class="btn-check" onclick="checkAnswer()">Check</button>
+ 
+    <div class="progress-section">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progressBar" style="width:0%"></div>
+      </div>
+      <div class="progress-label" id="progressLabel">0 / 148</div>
     </div>
-
-    <div class="hint-row" id="hintRow"></div>
-
-    <div class="feedback" id="feedback">
-      <div class="fb-icon" id="fbIcon"></div>
-      <div class="fb-text" id="fbText"></div>
+ 
+    <!-- Practice mode banner -->
+    <div class="practice-banner" id="practiceBanner">
+      ⚠ Practicando errores — <span id="practiceCount">0</span> verbos
+      <button onclick="exitPracticeMode()">✕ Salir</button>
     </div>
+ 
+    <div class="card" id="mainCard">
+      <div class="verb-label">Infinitivo (1ª forma)</div>
+      <div class="verb-display"><span class="verb-anim" id="verbDisplay">—</span></div>
+ 
+      <div class="input-row">
+        <input type="text" id="answerInput"
+          placeholder="Escribe el participio pasado…"
+          autocomplete="off" autocorrect="off" spellcheck="false" />
+        <button class="btn-main check-mode" id="mainBtn" onclick="handleMainBtn()">Verificar</button>
+      </div>
+ 
+      <div class="hint-row" id="hintRow"></div>
+ 
+      <div class="feedback" id="feedback">
+        <div class="fb-icon" id="fbIcon"></div>
+        <div class="fb-text" id="fbText"></div>
+      </div>
+    </div>
+ 
+    <div class="controls">
+      <button class="btn" onclick="showHint()">💡 Pista</button>
+      <button class="btn danger" onclick="resetSession()">↺ Reiniciar</button>
+    </div>
+ 
   </div>
-
-  <div class="controls">
-    <button class="btn" onclick="showHint()">💡 Hint</button>
-    <button class="btn" onclick="nextVerb()">Next →</button>
-    <button class="btn primary" onclick="resetSession()">↺ Reset</button>
+ 
+  <!-- ══ MISTAKES PAGE ══ -->
+  <div class="page" id="page-mistakes">
+ 
+    <div class="mistakes-header">
+      <h2>Errores &nbsp;<span id="mistakesCount" style="color:var(--accent2)">0</span></h2>
+      <button class="btn-sm" onclick="clearAllMistakes()">Borrar todo</button>
+    </div>
+ 
+    <button class="practice-mistakes-btn" id="practiceMistakesBtn"
+            onclick="startPracticeMode()" disabled>
+      🔁 Practicar solo mis errores
+    </button>
+ 
+    <div id="mistakesEmpty" class="mistakes-empty">
+      <span class="em-icon">🎯</span>
+      ¡Sin errores todavía! Sigue practicando.
+    </div>
+ 
+    <div class="mistakes-grid" id="mistakesGrid"></div>
+ 
   </div>
-</div>
-
+ 
+</div><!-- /container -->
+ 
 <script>
 const VERBS = [
   ["Arise","Arisen"],["Awake","Awoken"],["Be","Been"],["Bear","Borne"],
@@ -489,238 +558,319 @@ const VERBS = [
   ["Wet","Wet"],["Win","Won"],["Wind","Wound"],["Withdraw","Withdrawn"],
   ["Wring","Wrung"],["Write","Written"]
 ];
-
+ 
 const TOTAL = VERBS.length;
-
-// State
+ 
 let pool = [];
 let current = null;
 let correct = 0, wrong = 0, streak = 0, bestStreak = 0;
 let answered = false;
 let timerActive = false, timerInterval = null, timerSeconds = 12;
 let seen = new Set();
-
-// Load persisted best
+let mistakesMap = {};   // key: verb[0] → {verb, count}
+let practiceMode = false;
+let practicePool = [];
+ 
 let bestScore = parseInt(localStorage.getItem('verbforge_best') || '0');
 document.getElementById('bestScore').textContent = bestScore;
-
+ 
+// ── TABS ──
+function switchTab(name, el) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('page-' + name).classList.add('active');
+  if (name === 'mistakes') renderMistakes();
+}
+ 
+// ── SHUFFLE ──
 function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return arr;
+  return a;
 }
-
-function refillPool() {
-  pool = shuffle([...VERBS]);
-}
-
+ 
+function refillPool() { pool = shuffle(VERBS); }
+ 
+// ── NEXT VERB ──
 function nextVerb() {
   clearTimerInterval();
-  if (pool.length === 0) refillPool();
-  current = pool.pop();
-  seen.add(current[0]);
-
-  // Animate verb
+ 
+  if (practiceMode) {
+    if (practicePool.length === 0) {
+      practicePool = shuffle(Object.values(mistakesMap).map(m => m.verb));
+    }
+    if (practicePool.length === 0) { exitPracticeMode(); return; }
+    current = practicePool.pop();
+  } else {
+    if (pool.length === 0) refillPool();
+    current = pool.pop();
+    seen.add(current[0]);
+    updateProgress();
+  }
+ 
   const display = document.getElementById('verbDisplay');
   display.style.animation = 'none';
-  display.offsetHeight; // reflow
+  display.offsetHeight;
   display.style.animation = '';
   display.textContent = current[0];
-
-  // Reset UI
+ 
   const input = document.getElementById('answerInput');
   input.value = '';
   input.className = '';
   input.disabled = false;
-  input.focus();
-
+ 
   document.getElementById('feedback').className = 'feedback';
   document.getElementById('hintRow').innerHTML = '';
   document.getElementById('mainCard').className = 'card';
+ 
+  const btn = document.getElementById('mainBtn');
+  btn.textContent = 'Verificar';
+  btn.className = 'btn-main check-mode';
+ 
   answered = false;
-
-  updateProgress();
+  input.focus();
   if (timerActive) startTimer();
 }
-
-function getAccepted(answer) {
-  // Parse multiple accepted answers like "Burnt/Burned"
-  return answer.split('/').map(a => a.trim().toLowerCase());
+ 
+// ── UNIFIED BUTTON ──
+function handleMainBtn() {
+  if (!answered) checkAnswer();
+  else nextVerb();
 }
-
+ 
+function getAccepted(a) { return a.split('/').map(x => x.trim().toLowerCase()); }
+ 
 function checkAnswer() {
   if (answered || !current) return;
   const input = document.getElementById('answerInput');
-  const userVal = input.value.trim();
-  if (!userVal) { input.focus(); return; }
-
+  const val = input.value.trim();
+  if (!val) { input.focus(); return; }
+ 
   answered = true;
   clearTimerInterval();
-
-  const accepted = getAccepted(current[1]);
-  const isCorrect = accepted.includes(userVal.toLowerCase());
-
+ 
+  const ok = getAccepted(current[1]).includes(val.toLowerCase());
   const card = document.getElementById('mainCard');
-  const fb = document.getElementById('feedback');
-  const fbIcon = document.getElementById('fbIcon');
-  const fbText = document.getElementById('fbText');
-
-  if (isCorrect) {
-    correct++;
-    streak++;
-    if (streak > bestStreak) {
-      bestStreak = streak;
-      if (streak > bestScore) {
-        bestScore = streak;
-        localStorage.setItem('verbforge_best', bestScore);
-        document.getElementById('bestScore').textContent = bestScore;
-      }
+  const fb   = document.getElementById('feedback');
+  const btn  = document.getElementById('mainBtn');
+ 
+  if (ok) {
+    correct++; streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    if (streak > bestScore) {
+      bestScore = streak;
+      localStorage.setItem('verbforge_best', bestScore);
+      document.getElementById('bestScore').textContent = bestScore;
     }
     input.className = 'correct-input';
     card.className = 'card correct-flash';
     fb.className = 'feedback correct-fb visible';
-    fbIcon.textContent = '✓';
-    fbText.innerHTML = `Correct! <strong>${current[1]}</strong> — well done.`;
+    document.getElementById('fbIcon').textContent = '✓';
+    document.getElementById('fbText').innerHTML = `¡Correcto! <strong>${current[1]}</strong>`;
+    btn.textContent = 'Siguiente →';
+    btn.className = 'btn-main next-ok';
     playTone(true);
   } else {
-    wrong++;
-    streak = 0;
+    wrong++; streak = 0;
+    addMistake(current);
     input.className = 'wrong-input';
     card.className = 'card wrong-flash shake';
     fb.className = 'feedback wrong-fb visible';
-    fbIcon.textContent = '✗';
-    fbText.innerHTML = `Not quite. The answer is <strong>${current[1]}</strong>.`;
+    document.getElementById('fbIcon').textContent = '✗';
+    document.getElementById('fbText').innerHTML = `La respuesta correcta es <strong>${current[1]}</strong>.`;
+    btn.textContent = 'Siguiente →';
+    btn.className = 'btn-main next-err';
     playTone(false);
   }
-
+ 
   updateScore();
   updateStreak();
 }
-
+ 
+// ── MISTAKES ──
+function addMistake(verb) {
+  const k = verb[0];
+  if (!mistakesMap[k]) mistakesMap[k] = { verb, count: 1 };
+  else mistakesMap[k].count++;
+  updateMistakesBadge();
+}
+ 
+function removeMistake(k) {
+  delete mistakesMap[k];
+  updateMistakesBadge();
+  renderMistakes();
+}
+ 
+function clearAllMistakes() {
+  mistakesMap = {};
+  updateMistakesBadge();
+  renderMistakes();
+}
+ 
+function updateMistakesBadge() {
+  const n = Object.keys(mistakesMap).length;
+  const badge = document.getElementById('mistakesBadge');
+  badge.textContent = n;
+  badge.className = n > 0 ? 'tab-badge visible' : 'tab-badge';
+  document.getElementById('mistakesCount').textContent = n;
+  document.getElementById('practiceMistakesBtn').disabled = n === 0;
+}
+ 
+function renderMistakes() {
+  const grid  = document.getElementById('mistakesGrid');
+  const empty = document.getElementById('mistakesEmpty');
+  const keys  = Object.keys(mistakesMap);
+ 
+  if (keys.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+ 
+  const sorted = keys.sort((a, b) => mistakesMap[b].count - mistakesMap[a].count);
+  grid.innerHTML = sorted.map(k => {
+    const m = mistakesMap[k];
+    return `
+    <div class="mistake-card">
+      <span class="mc-count">×${m.count}</span>
+      <div class="mc-infinitive">Infinitivo</div>
+      <div class="mc-verb">${m.verb[0]}</div>
+      <div class="mc-arrow">↓ participio pasado</div>
+      <div class="mc-pp">${m.verb[1]}</div>
+      <button class="mc-del" onclick="removeMistake('${k}')" title="Borrar">✕</button>
+    </div>`;
+  }).join('');
+}
+ 
+// ── PRACTICE MODE ──
+function startPracticeMode() {
+  if (Object.keys(mistakesMap).length === 0) return;
+  practiceMode = true;
+  practicePool = shuffle(Object.values(mistakesMap).map(m => m.verb));
+  document.getElementById('practiceBanner').className = 'practice-banner visible';
+  document.getElementById('practiceCount').textContent = Object.keys(mistakesMap).length;
+  // Switch to practice tab
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('tabPractice').classList.add('active');
+  document.getElementById('page-practice').classList.add('active');
+  nextVerb();
+}
+ 
+function exitPracticeMode() {
+  practiceMode = false;
+  practicePool = [];
+  document.getElementById('practiceBanner').className = 'practice-banner';
+  nextVerb();
+}
+ 
+// ── HINT ──
 function showHint() {
   if (!current || answered) return;
-  const answer = current[1].split('/')[0]; // first accepted
-  let hint = answer[0].toUpperCase();
-  for (let i = 1; i < answer.length; i++) hint += ' _';
-  document.getElementById('hintRow').innerHTML = `Hint: <span>${hint}</span>`;
+  const a = current[1].split('/')[0];
+  let h = a[0].toUpperCase();
+  for (let i = 1; i < a.length; i++) h += ' _';
+  document.getElementById('hintRow').innerHTML = `Pista: <span>${h}</span>`;
 }
-
+ 
+// ── SCORE / STREAK / PROGRESS ──
 function updateScore() {
   document.getElementById('scoreCorrect').textContent = correct;
   document.getElementById('scoreWrong').textContent = wrong;
 }
-
 function updateStreak() {
-  const badge = document.getElementById('streakBadge');
   document.getElementById('streakCount').textContent = streak;
-  badge.className = streak >= 3 ? 'streak hot' : 'streak';
+  document.getElementById('streakBadge').className = streak >= 3 ? 'streak hot' : 'streak';
 }
-
 function updateProgress() {
   const pct = Math.round((seen.size / TOTAL) * 100);
   document.getElementById('progressBar').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = seen.size + ' / ' + TOTAL;
 }
-
+ 
+// ── RESET ──
 function resetSession() {
   correct = 0; wrong = 0; streak = 0; bestStreak = 0;
-  seen = new Set();
+  seen = new Set(); mistakesMap = {};
+  practiceMode = false; practicePool = [];
+  document.getElementById('practiceBanner').className = 'practice-banner';
+  updateMistakesBadge();
   refillPool();
   updateScore();
   updateStreak();
   nextVerb();
 }
-
-// Timer
+ 
+// ── TIMER ──
 function toggleTimer() {
   timerActive = !timerActive;
-  const btn = document.getElementById('timerToggle');
-  const wrap = document.getElementById('timerBarWrap');
-  btn.className = timerActive ? 'timer-toggle active' : 'timer-toggle';
-  wrap.className = timerActive ? 'timer-bar-wrap visible' : 'timer-bar-wrap';
-  if (timerActive) startTimer();
-  else clearTimerInterval();
+  document.getElementById('timerToggle').className = timerActive ? 'timer-toggle active' : 'timer-toggle';
+  document.getElementById('timerBarWrap').className = timerActive ? 'timer-bar-wrap visible' : 'timer-bar-wrap';
+  if (timerActive) startTimer(); else clearTimerInterval();
 }
-
+ 
 function startTimer() {
   clearTimerInterval();
-  let remaining = timerSeconds;
+  let rem = timerSeconds;
   const bar = document.getElementById('timerBar');
   bar.style.width = '100%';
   bar.className = 'timer-bar';
   timerInterval = setInterval(() => {
-    remaining -= 0.1;
-    const pct = (remaining / timerSeconds) * 100;
+    rem -= 0.1;
+    const pct = (rem / timerSeconds) * 100;
     bar.style.width = Math.max(0, pct) + '%';
     if (pct < 30) bar.className = 'timer-bar warning';
-    if (remaining <= 0) {
+    if (rem <= 0) {
       clearTimerInterval();
       if (!answered) {
-        // Time up — auto fail
-        answered = true;
-        wrong++;
-        streak = 0;
-        const card = document.getElementById('mainCard');
-        const fb = document.getElementById('feedback');
-        card.className = 'card wrong-flash shake';
-        fb.className = 'feedback wrong-fb visible';
+        answered = true; wrong++; streak = 0;
+        addMistake(current);
+        const btn = document.getElementById('mainBtn');
+        document.getElementById('mainCard').className = 'card wrong-flash shake';
+        document.getElementById('feedback').className = 'feedback wrong-fb visible';
         document.getElementById('fbIcon').textContent = '⏰';
-        document.getElementById('fbText').innerHTML = `Time's up! Answer: <strong>${current[1]}</strong>`;
+        document.getElementById('fbText').innerHTML = `¡Tiempo! Respuesta: <strong>${current[1]}</strong>`;
         document.getElementById('answerInput').disabled = true;
-        updateScore();
-        updateStreak();
+        btn.textContent = 'Siguiente →';
+        btn.className = 'btn-main next-err';
+        updateScore(); updateStreak();
         playTone(false);
       }
     }
   }, 100);
 }
-
+ 
 function clearTimerInterval() {
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
 }
-
-// Sound
-function playTone(success) {
+ 
+// ── SOUND ──
+function playTone(ok) {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    if (success) {
-      [523, 659, 784].forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.frequency.value = freq;
-        osc.type = 'sine';
-        gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.25);
-        osc.start(ctx.currentTime + i * 0.1);
-        osc.stop(ctx.currentTime + i * 0.1 + 0.25);
-      });
-    } else {
-      [220, 196].forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.frequency.value = freq;
-        osc.type = 'sawtooth';
-        gain.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.12);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.3);
-        osc.start(ctx.currentTime + i * 0.12);
-        osc.stop(ctx.currentTime + i * 0.12 + 0.3);
-      });
-    }
+    (ok ? [523,659,784] : [220,196]).forEach((freq, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq;
+      o.type = ok ? 'sine' : 'sawtooth';
+      const t = ctx.currentTime + i * (ok ? 0.1 : 0.12);
+      g.gain.setValueAtTime(ok ? 0.15 : 0.1, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+      o.start(t); o.stop(t + 0.28);
+    });
   } catch(e) {}
 }
-
-// Enter key
+ 
+// Enter key: same as button
 document.getElementById('answerInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    if (answered) nextVerb();
-    else checkAnswer();
-  }
+  if (e.key === 'Enter') handleMainBtn();
 });
-
+ 
 // Init
 refillPool();
 nextVerb();
